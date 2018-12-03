@@ -1,19 +1,21 @@
 package com.kevin.waitless;
 
+import java.util.ArrayList;
+
 /**
- * A class to represent the establishment patients have appointments at (GP/dentist etc.)
+ * A class to represent the establishment customers book to (restaurant/dentist etc.)
  */
 
 public class Venue {
     private String name, address;
-    private long system_id;
+    private long venue_id;
 
     Venue(String name,
           String address,
           long system_id){
         this.name = name;
         this.address = address;
-        this.system_id = system_id;
+        this.venue_id = system_id;
     }
 
     public String getName() {
@@ -33,10 +35,10 @@ public class Venue {
     }
 
     public long getSystem_id() {
-        return system_id;
+        return venue_id;
     }
 
     public void setSystem_id(long system_id) {
-        this.system_id = system_id;
+        this.venue_id = system_id;
     }
 }

@@ -1,40 +1,48 @@
 package com.kevin.waitless;
 
-import java.time.Clock;
 import java.time.ZonedDateTime;
 
 /**
- * A class to represent a Client's appointment at a Venue
+ * A class to represent a Customer's appointment at a Venue
  */
-
 public class Appointment {
-    private long patient_id, venue_id;
-    private ZonedDateTime app_time;
-    private int event_type;
 
-    Appointment(long patient_id,
-                long venue_id,
+    /**
+     * The type of appointment the customer has booked
+     */
+    public enum AppointmentType{
+        RESTAURANT_TABLE_BOOKING,
+        GP_STANDARD,
+        DENTIST_STANDARD
+    }
+
+    private byte[] customer_id, venue_id;
+    private ZonedDateTime app_time;
+    private AppointmentType event_type;
+
+    Appointment(byte[] customer_id,
+                byte[] venue_id,
                 ZonedDateTime app_time,
-                int event_type){
-        this.patient_id = patient_id;
+                AppointmentType event_type){
+        this.customer_id = customer_id;
         this.venue_id = venue_id;
         this.app_time = app_time;
         this.event_type = event_type;
     }
 
-    public long getPatient_id() {
-        return patient_id;
+    public byte[] getPatient_id() {
+        return customer_id;
     }
 
-    public void setPatient_id(long patient_id) {
-        this.patient_id = patient_id;
+    public void setPatient_id(byte[] patient_id) {
+        this.customer_id = patient_id;
     }
 
-    public long getVenue_id() {
+    public byte[] getVenue_id() {
         return venue_id;
     }
 
-    public void setVenue_id(long venue_id) {
+    public void setVenue_id(byte[] venue_id) {
         this.venue_id = venue_id;
     }
 
@@ -46,11 +54,11 @@ public class Appointment {
         this.app_time = app_time;
     }
 
-    public int getEvent_type() {
+    public AppointmentType getEvent_type() {
         return event_type;
     }
 
-    public void setEvent_type(int event_type) {
+    public void setEvent_type(AppointmentType event_type) {
         this.event_type = event_type;
     }
 }

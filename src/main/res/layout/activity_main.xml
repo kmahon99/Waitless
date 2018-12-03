@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp">
+    <Button
+        android:id="@+id/button_find_venue"
+        android:text="FIND VENUE"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        style="@style/WaitlessButton"
+        android:stateListAnimator="@null"
+        android:foreground="?attr/selectableItemBackground"/>
+</LinearLayout>
