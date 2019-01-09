@@ -2,6 +2,8 @@ package com.kevin.waitless;
 
 import android.util.Log;
 
+import androidx.room.TypeConverter;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,7 +16,7 @@ import java.util.regex.Pattern;
  */
 public class SystemID {
 
-    private ArrayList<byte[]> ID;
+    private String ID;
 
     private static final String TAG = "SystemID";
     private static final Pattern email_regex = Pattern.compile(
@@ -120,28 +122,10 @@ public class SystemID {
             "\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(" +
             "?:(?:\\r\\n)?[ \\t])*))*)?;\\s*)");
 
-    public SystemID(){ this.ID = new ArrayList<byte[]>(); }
+    public SystemID(){}
 
-    public SystemID(String ID) {
-        this.ID = new ArrayList<byte[]>();
-        this.ID.add(toHash(ID));
-    }
+    public SystemID(String ID) { if(email_regex.matcher(ID).matches()) this.ID = ID; }
 
-    public SystemID(ArrayList<?> IDs){
-        ID = new ArrayList<>();
-        if(IDs.size() > 0){
-            for(Object item : IDs){
-                if(item instanceof byte[]){ ID.add((byte[]) item); }
-                else if(item instanceof String) {
-                    byte[] h_string = toHash((String) item);
-                    if (!this.ID.contains(h_string)) {
-                        this.ID.add(h_string);
-                    }
-                }
-                else{ Log.e(TAG, "Attempted to add unsupported type to SystemID"); }
-            }
-        }
-    }
 
     /**
      * Takes a plain text string (should be email for Waitless) and converts to a 16 Byte array hash
@@ -173,7 +157,7 @@ public class SystemID {
      * Sets all IDs to the arraylist of IDs in the param, useful in retrieving IDs from database
      * @param ID
      */
-    public void setID(ArrayList<byte[]> ID){
+    public void setID(String ID){
         this.ID = ID;
     }
 
@@ -181,33 +165,23 @@ public class SystemID {
      * Returns all user IDs for this device
      * @return Array list of hash IDs
      */
-    public ArrayList<byte[]> getID(){
+    public String getID(){
         return this.ID;
     }
 
-    /**
-     * Add a new plain text ID to the list of IDs, will be converted to Hash on adding
-     * @param ID the plain text string (needs to be email) to add to ID list
-     */
-    public void addID(String ID){
-        byte[] hash = toHash(ID);
-        if (!this.ID.contains(hash) && hash != null) {
-            this.ID.add(toHash(ID));
-        }
-    }
+    public boolean isValid(){ return ID != null; }
 
-    /**
-     * Remove an ID from the list, user must know the original plain text version to achieve this
-     * @param ID The plain text version of the ID
-     * @return Returns the hashed version of the ID, otherwise null
-     */
-    public byte[] removeID(String ID){
-        byte[] hash = toHash(ID);
-        if (this.ID.contains(hash) && hash != null) {
-            this.ID.remove(hash);
-            return hash;
-        }
-        else{ return null; }
-    }
 }
 
+class SystemIDTypeConverter{
+
+    @TypeConverter
+    public static SystemID toSystemID(String value){
+        return value == null ? null : new SystemID(value);
+    }
+
+    @TypeConverter
+    public static String toString(SystemID value){
+        return value == null ? null : value.getID();
+    }
+}

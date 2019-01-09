@@ -1,5 +1,4 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,19 +15,18 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/stringName"
+                android:id="@+id/stringVenue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"/>
             <TextView
-                android:id="@+id/stringAddress"
+                android:id="@+id/stringDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:paddingTop="10dp"/>
-                android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp"/>
         </LinearLayout>
     </RelativeLayout>
-
 </layout>

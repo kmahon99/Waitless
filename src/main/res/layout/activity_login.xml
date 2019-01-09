@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp">
+    <LinearLayout
+        android:id="@+id/dialog_create_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CREATE ACCOUNT"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="15dp"/>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/button_user"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="User"
+                android:defaultFocusHighlightEnabled="true"
+                android:layout_weight=".5"
+                android:textColor="@color/colorPrimaryDark"
+                android:buttonTint="@color/colorPrimary"/>
+            <RadioButton
+                android:id="@+id/button_venue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Venue"
+                android:layout_weight=".5"
+                android:textColor="@color/colorPrimaryDark"
+                android:buttonTint="@color/colorPrimary"/>
+        </RadioGroup>
+        <EditText
+            android:id="@+id/dialog_create_account_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:hint="First Name"/>
+        <EditText
+            android:id="@+id/dialog_create_account_surname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:hint="Last Name"/>
+        <Button
+            android:id="@+id/button_create_account"
+            android:text="GO!"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="30dp"
+            style="@style/WaitlessButton"
+            android:stateListAnimator="@null"
+            android:foreground="?attr/selectableItemBackground"/>
+    </LinearLayout>
+</LinearLayout>
