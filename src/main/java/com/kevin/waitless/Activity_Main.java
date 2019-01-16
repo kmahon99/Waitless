@@ -17,18 +17,23 @@ public class Activity_Main extends AppCompatActivity {
     }
 
     private void setup(){
-        final Button button_find_venue = findViewById(R.id.button_find_venue);
-        button_find_venue.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_find_venue).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Activity_Find_Venue.class);
                 v.getContext().startActivity(intent);
             }
         });
-        final Button button_bookings = findViewById(R.id.button_bookings);
-        button_bookings.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_bookings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),Activity_Bookings.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+        findViewById(R.id.button_register_venue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),Activity_Register_Venue.class);
                 v.getContext().startActivity(intent);
             }
         });

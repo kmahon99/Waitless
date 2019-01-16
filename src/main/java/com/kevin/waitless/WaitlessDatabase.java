@@ -10,8 +10,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.Context;
 
-@Database(entities = {Client.class,Venue.class,Restaurant.class,Booking.class}, version = 11)
-@TypeConverters({SystemIDTypeConverter.class,TimeTypeConverter.class})
+@Database(entities = {Client.class,Venue.class,Restaurant.class,Booking.class}, version = 12)
+@TypeConverters({SystemIDTypeConverter.class,TimeTypeConverter.class,StatusTypeConverter.class})
 public abstract class WaitlessDatabase extends RoomDatabase {
 
     private static volatile WaitlessDatabase INSTANCE;

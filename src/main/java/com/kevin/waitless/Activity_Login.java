@@ -14,6 +14,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.View;
@@ -23,15 +27,25 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_Login extends Activity {
+public class Activity_Login extends FragmentActivity {
 
-    static WaitlessDatabase database;
+    private static WaitlessDatabase database;
+    private Place place;
     private static final int MY_PERMISSIONS_REQUEST_READ_ACCOUNTS = 1;
     private static final int REQUEST_CODE_PICK_ACCOUNT = 2;
+    private final static int PLACE_PICKER_REQUEST = 1;
 
     private static final String TAG = "Activity_Login";
 
@@ -41,20 +55,16 @@ public class Activity_Login extends Activity {
     }
 
     private void createLoginDialog(){
-        final RadioButton button_user = findViewById(R.id.button_user);
-        button_user.setChecked(true);
         final Button create_account = findViewById(R.id.button_create_account);
         database = WaitlessDatabase.getDatabase(getApplicationContext());
         create_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(button_user.isChecked()){
-                    Intent intent = AccountManager.newChooseAccountIntent(null, null,
-                            new String[] {"com.google", "com.google.android.legacyimap"},
-                            false, null, null, null, null);
-                    intent.putExtra("Invoker",v.getId());
-                    startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
-                }
+                Intent intent = AccountManager.newChooseAccountIntent(null, null,
+                        new String[] {"com.google", "com.google.android.legacyimap"},
+                        false, null, null, null, null);
+                intent.putExtra("Invoker",v.getId());
+                startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
             }
         });
     }
@@ -105,11 +115,11 @@ public class Activity_Login extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             activity_loginWeakReference.get().setContentView(R.layout.activity_login);
-            if(activity_loginWeakReference != null && client != null){
-                Intent intent = new Intent(activity_loginWeakReference.get().findViewById(R.id.button_create_account).getContext(), Activity_Main.class);
-                activity_loginWeakReference.get().findViewById(R.id.button_create_account).getContext().startActivity(intent);
-            }
-            else{
+//            if(activity_loginWeakReference != null && client != null){
+//                Intent intent = new Intent(activity_loginWeakReference.get().findViewById(R.id.button_create_account).getContext(), Activity_Main.class);
+//                activity_loginWeakReference.get().findViewById(R.id.button_create_account).getContext().startActivity(intent);
+//            }
+//            else{
                 if (ContextCompat.checkSelfPermission(activity_loginWeakReference.get().getApplicationContext(),
                         Manifest.permission.GET_ACCOUNTS)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -120,7 +130,7 @@ public class Activity_Login extends Activity {
                 else{
                     activity_loginWeakReference.get().createLoginDialog();
                 }
-            }
+//            }
         }
     }
 

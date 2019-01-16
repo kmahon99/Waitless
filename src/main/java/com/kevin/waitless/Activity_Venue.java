@@ -23,8 +23,9 @@ import java.util.List;
 public class Activity_Venue extends FragmentActivity {
 
     private static final String TAG = "Activity_Venue";
+    private static Venue venue;
     private static int frag_count = 0;
-    private Fragment_Request_Reservation fragment_make_reservation;
+    private static Fragment_Request_Reservation fragment_make_reservation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,8 +40,9 @@ public class Activity_Venue extends FragmentActivity {
             public void onClick(View v) {
                 switch(((Button)v).getText().toString()){
                     case "REQUEST A BOOKING":
-                        Log.d(TAG,"Clicked!");
-                        addFragment(R.id.venue_menu, fragment_make_reservation);
+                        if(venue != null){
+                            addFragment(R.id.venue_menu, fragment_make_reservation);
+                        }
                 }
             }
         });
@@ -48,31 +50,21 @@ public class Activity_Venue extends FragmentActivity {
         ((LinearLayout)findViewById(R.id.venue_header)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
     }
 
-    private void initFragments(Venue venue){
-        fragment_make_reservation = new Fragment_Request_Reservation(venue);
-    }
-
     private void addFragment(int container, Fragment fragment){
         final FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.addToBackStack("stack_venue_booking");
+        transaction.addToBackStack("stack_booking");
         transaction.add(container,fragment);
         transaction.commit();
         manager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                Log.d(TAG,"Size: "+manager.getBackStackEntryCount());
                 if(manager.getBackStackEntryCount() < frag_count) {
-                    Log.d(TAG, "Item removed!");
                     onFragmentRemoval();
                 }
                 frag_count = manager.getBackStackEntryCount();
             }
         });
-        onFragmentAddition();
-    }
-
-    private void onFragmentAddition(){
         LinearLayout v = findViewById(R.id.venue_menu_buttons);
         v.setVisibility(View.GONE);
         LinearLayout header = findViewById(R.id.venue_header);
@@ -119,7 +111,8 @@ public class Activity_Venue extends FragmentActivity {
         protected void onPostExecute(Void aVoid) {
             if(activityWeakReference != null && result.size() == 1) {
                 ((TextView)activityWeakReference.get().findViewById(R.id.venue_name)).setText(result.get(0).getName());
-                activityWeakReference.get().initFragments(result.get(0));
+                venue = result.get(0);
+                fragment_make_reservation = new Fragment_Request_Reservation(venue);
             }
             else{ Log.d(TAG,"Expected 1 venue result, got: "+result.size()); }
         }

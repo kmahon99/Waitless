@@ -2,7 +2,6 @@ package com.kevin.waitless;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Entity;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -29,6 +28,7 @@ public class Venue implements Comparable<Venue>{
     private Time opening_time;
     @ColumnInfo(name = "venue_closingtime")
     private Time closing_time;
+
     @ColumnInfo(name="venue_type")
     private String type;
 

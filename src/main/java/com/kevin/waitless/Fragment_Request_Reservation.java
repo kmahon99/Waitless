@@ -83,12 +83,6 @@ public class Fragment_Request_Reservation extends DialogFragment {
         });
     }
 
-    private void close(){
-        FragmentManager manager = getFragmentManager();
-        manager.popBackStack();
-        getActivity().getSupportFragmentManager().beginTransaction().remove(Fragment_Request_Reservation.this).commit();
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -97,8 +91,13 @@ public class Fragment_Request_Reservation extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-
         return inflater.inflate(R.layout.fragment_request_reservation, container, false);
+    }
+
+    private void close(){
+        FragmentManager manager = getFragmentManager();
+        manager.popBackStack();
+        getActivity().getSupportFragmentManager().beginTransaction().remove(Fragment_Request_Reservation.this).commit();
     }
 
     private static class setBooking extends AsyncTask<Void,Void,Void>{

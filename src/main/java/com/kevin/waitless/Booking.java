@@ -7,6 +7,7 @@ import androidx.room.Entity;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 import androidx.room.Query;
+import androidx.room.TypeConverter;
 import androidx.room.Update;
 
 import java.util.List;
@@ -30,6 +31,15 @@ public class Booking {
     private SystemID user;
     @ColumnInfo(name = "booking_venue")
     private long venue;
+    @ColumnInfo(name = "booking_status")
+    private Status booking_status;
+
+    enum Status{
+        PENDING,
+        CONFIRMED,
+        CANCELLED,
+        DECLINED
+    }
 
     public Booking(int year, int month, int day, int hour, int min, SystemID user, long venue){
         this.year = year;
@@ -39,6 +49,7 @@ public class Booking {
         this.min = min;
         this.user = user;
         this.venue = venue;
+        this.booking_status = Status.PENDING;
     }
 
     public int getYear() {
@@ -104,6 +115,16 @@ public class Booking {
     public void setVenue(long venue) {
         this.venue = venue;
     }
+
+    public Status getBooking_status() {
+        return booking_status;
+    }
+
+    public void setBooking_status(Status booking_status) {
+        this.booking_status = booking_status;
+    }
+
+
 }
 
 @Dao
@@ -118,4 +139,12 @@ interface BookingDao{
     List<Booking> getAllBookings();
     @Query("SELECT * FROM BOOKINGS WHERE booking_id = :booking_id")
     List<Booking> getBookingById(long booking_id);
+}
+
+class StatusTypeConverter{
+    @TypeConverter
+    public static Booking.Status toStatus(String value){ return Booking.Status.valueOf(value); }
+
+    @TypeConverter
+    public static String toString(Booking.Status value){ return value.name(); }
 }

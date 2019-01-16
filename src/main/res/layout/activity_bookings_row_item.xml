@@ -2,15 +2,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp">
+        android:layout_margin="30dp">
         <LinearLayout
+            android:id="@+id/booking_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:padding="10dp"
             android:textAllCaps="false"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:orientation="vertical">
@@ -26,7 +25,16 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:paddingTop="10dp"/>
-            android:paddingBottom="10dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true">
+            <TextView
+                android:id="@+id/stringStatus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </RelativeLayout>
 </layout>

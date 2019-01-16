@@ -16,24 +16,24 @@ import com.kevin.waitless.databinding.ActivityFindVenueRowItemBinding;
 
 public class Activity_Find_Venue_List_Adapter extends BaseAdapter implements Filterable{
 
-        private List<Venue> mData;
+        private List<Venue> venues;
         private List<Venue> mStringFilterList;
         private ValueFilter valueFilter;
         private LayoutInflater inflater;
 
         public Activity_Find_Venue_List_Adapter(List<Venue> cancel_type) {
-            mData = cancel_type;
+            venues = cancel_type;
             mStringFilterList = cancel_type;
         }
 
         @Override
         public int getCount() {
-            return mData.size();
+            return venues.size();
         }
 
         @Override
         public Venue getItem(int position) {
-            return mData.get(position);
+            return venues.get(position);
         }
 
         @Override
@@ -50,13 +50,13 @@ public class Activity_Find_Venue_List_Adapter extends BaseAdapter implements Fil
             final ActivityFindVenueRowItemBinding rowItemBinding = DataBindingUtil.inflate(inflater,
                                                         R.layout.activity_find_venue_row_item,
                                                         parent, false);
-            rowItemBinding.stringName.setText(mData.get(position).getName());
-            rowItemBinding.stringAddress.setText(mData.get(position).getAddress());
+            rowItemBinding.stringName.setText(venues.get(position).getName());
+            rowItemBinding.stringAddress.setText(venues.get(position).getAddress());
             rowItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), Activity_Venue.class);
-                    intent.putExtra("venue_id", mData.get(position).getVenue_id());
+                    intent.putExtra("venue_id", venues.get(position).getVenue_id());
                     v.getContext().startActivity(intent);
                 }
             });
@@ -95,14 +95,14 @@ public class Activity_Find_Venue_List_Adapter extends BaseAdapter implements Fil
             @Override
             protected void publishResults(CharSequence constraint,
                                           FilterResults results) {
-                mData = (List<Venue>) results.values;
+                venues = (List<Venue>) results.values;
                 notifyDataSetChanged();
             }
         }
 
         public void refresh(List<Venue> venues) {
-            this.mData.clear();
-            this.mData.addAll(venues);
+            this.venues.clear();
+            this.venues.addAll(venues);
             notifyDataSetChanged();
         }
 }
