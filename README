@@ -1,0 +1,5 @@
+Hi there, this is a short description of the aim of this project.
+
+Waitless is expected to be a SaaS project revolving mainly around a phone app. The aim is to construct a system whereby customers have a closer relationship with businesses that operate on an appointment-based system. Customers will be able to make bookings to businesses that are registered with the Waitless service, this booking will be approved by the business and the customer will then have real time information on the progress of their booking (how many people are in the queue ahead of them, expected delays etc.). For venues like restaraunts, Waitless will offer security for bookings, as users' reputation for upholding reservations are recorded and they will also be required to pay a deposit for the reservation using the app.
+
+The code for this project is mainly proof of concept, the aim is to create the back end functionality and then focus on the ergonomics of the front end thereafter.
