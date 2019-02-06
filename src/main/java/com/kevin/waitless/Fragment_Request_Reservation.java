@@ -29,23 +29,22 @@ public class Fragment_Request_Reservation extends DialogFragment {
     private int booking_year, booking_month, booking_day;
 
     private Venue venue;
-    private Client client;
 
     private static final String TAG = "FRAG_REQ_RES";
 
     public Fragment_Request_Reservation(Venue venue){
         this.venue = venue;
-        this.client = new Client();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         final TimePicker timePicker = getView().findViewById(R.id.make_reservation_time);
         timePicker.setIs24HourView(true);
         booking_hour = booking_min = booking_year = booking_month = booking_day = -1;
-        booking_hour = timePicker.getHour();
-        booking_min = timePicker.getMinute();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            booking_hour = timePicker.getHour();
+            booking_min = timePicker.getMinute();
+        }
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
@@ -72,7 +71,7 @@ public class Fragment_Request_Reservation extends DialogFragment {
                     Toast.makeText(getContext(),"Choose a later date and time!",Toast.LENGTH_LONG);
                 }
                 new setBooking(getActivity(),new Booking(booking_year, booking_month, booking_day,
-                        booking_hour, booking_min,client.getEmail(),venue.getVenue_id())).execute();
+                        booking_hour, booking_min,WaitlessActivity.USER.getEmail(),venue.getVenue_id())).execute();
                 close();
             }
         });

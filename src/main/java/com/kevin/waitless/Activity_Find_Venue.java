@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_Find_Venue extends Activity {
+public class Activity_Find_Venue extends WaitlessActivity {
 
     ActivityFindVenueBinding activityFindVenueBinding;
     Activity_Find_Venue_List_Adapter adapter;
@@ -35,8 +35,6 @@ public class Activity_Find_Venue extends Activity {
         }
 
         new deleteVenues(Activity_Find_Venue.this,"Restaurant").execute();
-
-        venues.add(new Venue(1,"Restaurant","An Address"));
 
         new insertVenues(Activity_Find_Venue.this,venues).execute();
 
@@ -115,7 +113,6 @@ public class Activity_Find_Venue extends Activity {
             List<Venue> venues = new ArrayList<>();
             if(weakReference.get() != null && adapter != null && param != null){
                 venues = venueDao.getVenuesByName(param);
-                Log.d(TAG,"Fetched: "+venues.size()+" param: "+param);
             }
             return venues;
         }

@@ -1,5 +1,6 @@
 package com.kevin.waitless;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Dao;
 import androidx.room.Entity;
@@ -18,8 +19,9 @@ import java.util.List;
 @Entity(tableName = "VENUES")
 public class Venue implements Comparable<Venue>{
 
+    @NonNull
     @PrimaryKey
-    private long venue_id;
+    private String venue_id;
     @ColumnInfo(name="venue_name")
     private String name;
     @ColumnInfo(name="venue_address")
@@ -34,7 +36,7 @@ public class Venue implements Comparable<Venue>{
 
     Venue(){}
 
-    Venue(long venue_id,
+    Venue(String venue_id,
           String name,
           String address){
         this.venue_id = venue_id;
@@ -59,11 +61,11 @@ public class Venue implements Comparable<Venue>{
         this.address = address;
     }
 
-    public long getVenue_id() {
+    public String getVenue_id() {
         return venue_id;
     }
 
-    public void setVenue_id(long venue_id) {
+    public void setVenue_id(String venue_id) {
         this.venue_id = venue_id;
     }
 
@@ -105,9 +107,8 @@ interface VenueDao{
     @Query("SELECT DISTINCT * FROM VENUES WHERE venue_name LIKE '%'||:name||'%'")
     List<Venue> getVenuesByName(String name);
     @Query("SELECT * FROM VENUES WHERE venue_id = :venue_id")
-    List<Venue> getVenueById(long venue_id);
+    List<Venue> getVenueById(String venue_id);
 }
-
 
 class TimeTypeConverter{
     @TypeConverter

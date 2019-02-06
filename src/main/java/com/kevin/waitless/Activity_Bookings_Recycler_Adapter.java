@@ -28,15 +28,15 @@ public class Activity_Bookings_Recycler_Adapter extends
     private static int frag_count = 0;
     private static final String TAG = "Activity_Bookings_Adapt";
 
-    public Activity_Bookings_Recycler_Adapter(List<Booking> bookings, FragmentActivity activity){
-        this.bookings = bookings;
+    Activity_Bookings_Recycler_Adapter(List<Booking> bookings, FragmentActivity activity){
+        Activity_Bookings_Recycler_Adapter.bookings = bookings;
         this.activity = activity;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        public ActivityBookingsRowItemBinding bookingsRowItemBinding;
+    class ViewHolder extends RecyclerView.ViewHolder{
+        ActivityBookingsRowItemBinding bookingsRowItemBinding;
 
-        public ViewHolder(ActivityBookingsRowItemBinding bookingsRowItemBinding) {
+        ViewHolder(ActivityBookingsRowItemBinding bookingsRowItemBinding) {
             super(bookingsRowItemBinding.getRoot());
             this.bookingsRowItemBinding = bookingsRowItemBinding;
         }
@@ -55,7 +55,7 @@ public class Activity_Bookings_Recycler_Adapter extends
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        new setup(holder,this,activity,position,bookings.get(position).getVenue()).execute();
+        new setup(holder,this,activity,position,bookings.get(position).getVenue_id()).execute();
     }
 
     @Override
@@ -76,8 +76,8 @@ public class Activity_Bookings_Recycler_Adapter extends
     }
 
     public void refresh(List<Booking> bookings) {
-        this.bookings.clear();
-        this.bookings.addAll(bookings);
+        Activity_Bookings_Recycler_Adapter.bookings.clear();
+        Activity_Bookings_Recycler_Adapter.bookings.addAll(bookings);
         notifyDataSetChanged();
     }
 
@@ -88,9 +88,9 @@ public class Activity_Bookings_Recycler_Adapter extends
         ViewHolder holder;
         Booking booking;
         Activity_Bookings_Recycler_Adapter adapter;
-        long venue_id; int position;
+        String venue_id; int position;
 
-        setup(ViewHolder holder, Activity_Bookings_Recycler_Adapter adapter, FragmentActivity activity, int position, long venue_id){
+        setup(ViewHolder holder, Activity_Bookings_Recycler_Adapter adapter, FragmentActivity activity, int position, String venue_id){
             activityWeakReference = new WeakReference<>(activity);
             this.adapter = adapter;
             this.booking = adapter.getItem(position);

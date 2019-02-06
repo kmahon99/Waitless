@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:gravity="center"
-                android:src="@drawable/icon_restaurant"
+                android:src="@drawable/ic_restaurant"
                 android:animateLayoutChanges="true"/>
         </LinearLayout>
     </LinearLayout>

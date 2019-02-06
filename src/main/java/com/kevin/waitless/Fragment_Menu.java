@@ -2,6 +2,8 @@ package com.kevin.waitless;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +15,33 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.lang.ref.WeakReference;
+
 public class Fragment_Menu extends Fragment {
 
-    private enum state {CLIENT,VENUE};
-    private static state menu_state = state.CLIENT;
+    public enum state {CLIENT,VENUE}
+    private static state app_state;
+    private FloatingActionButton venue_toggle;
+    private FloatingActionButton menu;
+    private OnAppStateChangeListener onAppStateChangeListener;
+
+    private static final String TAG = "Fragment_Menu";
+
+    public Fragment_Menu(){
+        app_state = state.CLIENT;
+        this.onAppStateChangeListener = null;
+    }
+
+    public interface OnAppStateChangeListener{
+        void onStateChanged(state s);
+    }
+
+    public void addOnAppStateChangedListener(OnAppStateChangeListener listener){
+        this.onAppStateChangeListener = listener;
+    }
 
     @Override
-        public void onAttach(@NonNull Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
     }
 
@@ -31,8 +53,8 @@ public class Fragment_Menu extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final FloatingActionButton venue_toggle = getActivity().findViewById(R.id.menu_fab_toggle_venue);
-        final FloatingActionButton menu = getActivity().findViewById(R.id.menu_fab);
+        venue_toggle = getActivity().findViewById(R.id.menu_fab_toggle_venue);
+        menu = getActivity().findViewById(R.id.menu_fab);
         venue_toggle.hide();
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +65,21 @@ public class Fragment_Menu extends Fragment {
         venue_toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickVenueToggle(menu,venue_toggle);
+                if(getAppState() == state.CLIENT){
+                    menu.setBackgroundTintList(ColorStateList.valueOf(Fragment_Menu.this.getResources().getColor(R.color.colorPrimaryVenue)));
+                    venue_toggle.setBackgroundTintList(ColorStateList.valueOf(Fragment_Menu.this.getResources().getColor(R.color.colorPrimaryDark)));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryVenue));
+                    }
+                }
+                else{
+                    menu.setBackgroundTintList(ColorStateList.valueOf(Fragment_Menu.this.getResources().getColor(R.color.colorPrimaryDark)));
+                    venue_toggle.setBackgroundTintList(ColorStateList.valueOf(Fragment_Menu.this.getResources().getColor(R.color.colorPrimaryVenue)));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+                    }
+                }
+                new changeAppState(Fragment_Menu.this).execute();
             }
         });
     }
@@ -56,15 +92,37 @@ public class Fragment_Menu extends Fragment {
         }
     }
 
-    private void onClickVenueToggle(FloatingActionButton menu, FloatingActionButton venue_toggle){
-        if(menu_state == state.CLIENT) {
-            menu.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryVenue)));
-            venue_toggle.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
-            menu_state = state.VENUE;
-        }else{
-            menu.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
-            venue_toggle.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryVenue)));
-            menu_state = state.CLIENT;
+    public void setAppState(state s){ app_state = s; }
+
+    public state getAppState(){ return app_state; }
+
+    private static class changeAppState extends AsyncTask<Void,Void,Void>{
+
+        WeakReference<Fragment_Menu> fragment_menuWeakReference;
+
+        public changeAppState(Fragment_Menu fragment){
+            fragment_menuWeakReference = new WeakReference(fragment);
         }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if(fragment_menuWeakReference != null){
+                if(fragment_menuWeakReference.get().getAppState() == state.CLIENT) {
+                   fragment_menuWeakReference.get().setAppState(state.VENUE);
+                }else{
+                    fragment_menuWeakReference.get().setAppState(state.CLIENT);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if(fragment_menuWeakReference != null && fragment_menuWeakReference.get().onAppStateChangeListener != null){
+                fragment_menuWeakReference.get().onAppStateChangeListener.onStateChanged(fragment_menuWeakReference.get().getAppState());
+            }
+        }
+
+
     }
 }

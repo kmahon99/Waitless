@@ -12,7 +12,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/icon_cancel"
+                    android:src="@drawable/ic_cancel"
                     android:animateLayoutChanges="true"/>
         </RelativeLayout>
         <CalendarView

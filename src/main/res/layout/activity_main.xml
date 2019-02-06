@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center_vertical">
-    <Button
-        android:id="@+id/button_find_venue"
-        android:text="FIND VENUE"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        style="@style/WaitlessButton"
-        android:stateListAnimator="@null"
-        android:layout_margin="30dp"
-        android:foreground="?attr/selectableItemBackground"/>
-    <Button
-        android:id="@+id/button_bookings"
-        android:text="YOUR BOOKINGS"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        style="@style/WaitlessButton"
-        android:stateListAnimator="@null"
-        android:layout_margin="30dp"
-        android:foreground="?attr/selectableItemBackground"/>
-    <Button
-        android:id="@+id/button_register_venue"
-        android:text="REGISTER VENUE"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        style="@style/WaitlessButton"
-        android:stateListAnimator="@null"
-        android:layout_margin="30dp"
-        android:foreground="?attr/selectableItemBackground"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+        <Button
+            android:id="@+id/button_find_venue"
+            android:text="FIND VENUE"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            style="@style/WaitlessButton"
+            android:stateListAnimator="@null"
+            android:layout_margin="30dp"
+            android:foreground="?attr/selectableItemBackground"/>
+        <Button
+            android:id="@+id/button_bookings"
+            android:text="YOUR BOOKINGS"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            style="@style/WaitlessButton"
+            android:stateListAnimator="@null"
+            android:layout_margin="30dp"
+            android:foreground="?attr/selectableItemBackground"/>
+        <Button
+            android:id="@+id/button_register_venue"
+            android:text="REGISTER VENUE"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            style="@style/WaitlessVenueButton"
+            android:stateListAnimator="@null"
+            android:layout_margin="30dp"
+            android:foreground="?attr/selectableItemBackground"/>
+        <Button
+            android:id="@+id/button_manage_bookings"
+            android:text="MANAGE BOOKINGS"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            style="@style/WaitlessVenueButton"
+            android:stateListAnimator="@null"
+            android:layout_margin="30dp"
+            android:foreground="?attr/selectableItemBackground"/>
+    </LinearLayout>

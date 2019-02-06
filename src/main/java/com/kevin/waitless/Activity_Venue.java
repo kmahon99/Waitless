@@ -3,6 +3,7 @@ package com.kevin.waitless;
 import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -27,12 +29,13 @@ public class Activity_Venue extends FragmentActivity {
     private static int frag_count = 0;
     private static Fragment_Request_Reservation fragment_make_reservation;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_venue);
         Intent intent = getIntent();
-        final long query = intent.getLongExtra("venue_id",-1);
+        final String query = intent.getStringExtra("venue_id");
         new getReferencedVenue(Activity_Venue.this,query).execute();
         Button button_make_reservation = findViewById(R.id.button_make_booking);
         button_make_reservation.setOnClickListener(new View.OnClickListener() {
@@ -91,16 +94,16 @@ public class Activity_Venue extends FragmentActivity {
         WeakReference<Activity_Venue> activityWeakReference;
         VenueDao venueDao;
         List<Venue> result;
-        long id;
+        String id;
 
-        getReferencedVenue(Activity_Venue activity, long venue_id){
+        getReferencedVenue(Activity_Venue activity, String venue_id){
             activityWeakReference = new WeakReference<>(activity);
             id = venue_id;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            if(activityWeakReference != null && id >= 0){
+            if(activityWeakReference != null && id != null){
                 venueDao = WaitlessDatabase.getDatabase(activityWeakReference.get()).venueDao();
                 result = venueDao.getVenueById(id);
             }

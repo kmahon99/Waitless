@@ -2,4 +2,6 @@
 <resources>
     <color name="colorPrimary">#00c4ff</color>
     <color name="colorPrimaryDark">#00a2ff</color>
+    <color name="colorPrimaryVenue">#FFBF00</color>
+    <color name="colorPrimaryVenueDark">#FFA200</color>
 </resources>

@@ -59,7 +59,7 @@ public class Fragment_Booking extends DialogFragment{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Activity_Venue.class);
-                intent.putExtra("venue_id", adapter.getItem(position).getVenue());
+                intent.putExtra("venue_id", adapter.getItem(position).getVenue_id());
                 v.getContext().startActivity(intent);
             }
         });

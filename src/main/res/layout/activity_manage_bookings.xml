@@ -1,0 +1,38 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="40dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="YOU HAVE"
+                android:textAlignment="center"
+                android:textSize="18dp"/>
+            <TextView
+                android:id="@+id/manage_bookings_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryVenueDark"
+                android:textAlignment="center"
+                android:text="0"
+                android:textSize="40dp"
+                android:padding="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PENDING BOOKINGS"
+                android:textAlignment="center"
+                android:textSize="18dp"/>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/manage_bookings_recycler_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>

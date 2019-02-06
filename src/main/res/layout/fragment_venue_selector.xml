@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:gravity="bottom">
+
+        <!--<io.codetail.widget.RevealFrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true">-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/venue_selector_list"
+            android:layout_margin="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_weight="0.8" />
+        <!--</io.codetail.widget.RevealFrameLayout>-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/venue_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:backgroundTint="@color/colorPrimaryVenue"
+            android:layout_margin="20dp"
+            app:srcCompat="@drawable/ic_group_expand_15"
+            app:borderWidth="0dp"
+            android:layout_gravity="bottom|end"/>
+    </LinearLayout>
+</layout>

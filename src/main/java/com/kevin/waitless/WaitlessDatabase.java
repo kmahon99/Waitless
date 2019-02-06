@@ -3,15 +3,12 @@ package com.kevin.waitless;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.Context;
 
-@Database(entities = {Client.class,Venue.class,Restaurant.class,Booking.class}, version = 12)
-@TypeConverters({SystemIDTypeConverter.class,TimeTypeConverter.class,StatusTypeConverter.class})
+@Database(entities = {User.class,Venue.class,Restaurant.class,Booking.class}, version = 19)
+@TypeConverters({SystemIDTypeConverter.class,TimeTypeConverter.class,StatusTypeConverter.class,StringHashMapTypeConverter.class})
 public abstract class WaitlessDatabase extends RoomDatabase {
 
     private static volatile WaitlessDatabase INSTANCE;

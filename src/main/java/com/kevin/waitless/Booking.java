@@ -28,9 +28,9 @@ public class Booking {
     @ColumnInfo(name = "booking_min")
     private int min;
     @ColumnInfo(name = "booking_user")
-    private SystemID user;
+    private String user;
     @ColumnInfo(name = "booking_venue")
-    private long venue;
+    private String venue_id;
     @ColumnInfo(name = "booking_status")
     private Status booking_status;
 
@@ -41,14 +41,14 @@ public class Booking {
         DECLINED
     }
 
-    public Booking(int year, int month, int day, int hour, int min, SystemID user, long venue){
+    public Booking(int year, int month, int day, int hour, int min, String user, String venue_id){
         this.year = year;
         this.month = month;
         this.day = day;
         this.hour = hour;
         this.min = min;
         this.user = user;
-        this.venue = venue;
+        this.venue_id = venue_id;
         this.booking_status = Status.PENDING;
     }
 
@@ -100,20 +100,12 @@ public class Booking {
         this.booking_id = booking_id;
     }
 
-    public SystemID getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(SystemID user_id) {
+    public void setUser(String user_id) {
         this.user = user_id;
-    }
-
-    public long getVenue() {
-        return venue;
-    }
-
-    public void setVenue(long venue) {
-        this.venue = venue;
     }
 
     public Status getBooking_status() {
@@ -124,7 +116,13 @@ public class Booking {
         this.booking_status = booking_status;
     }
 
+    public String getVenue_id() {
+        return venue_id;
+    }
 
+    public void setVenue_id(String venue_id) {
+        this.venue_id = venue_id;
+    }
 }
 
 @Dao
@@ -139,6 +137,8 @@ interface BookingDao{
     List<Booking> getAllBookings();
     @Query("SELECT * FROM BOOKINGS WHERE booking_id = :booking_id")
     List<Booking> getBookingById(long booking_id);
+    @Query("SELECT * FROM BOOKINGS WHERE booking_venue = :booking_venue")
+    List<Booking> getBookingsByVenue(String booking_venue);
 }
 
 class StatusTypeConverter{
